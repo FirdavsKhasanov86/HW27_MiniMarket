@@ -8,5 +8,6 @@ namespace HW27_MiniMarket.Models
         public string ProductName { get; set; }
         public double Price { get; set; }
         public ProductCategory ProductCategory { get; set; }
+        
     }
 }

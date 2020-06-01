@@ -9,6 +9,10 @@ namespace HW27_MiniMarket.Models
         }
         public virtual DbSet<Product> Products { get; set; }
         public virtual DbSet<ProductCategory> Categories { get; set; }
+        public virtual DbSet<Cart> Carts { get; set; }
+        public virtual DbSet<Adress> Adresses { get; set;}
+
+        
         protected override void OnModelCreating(ModelBuilder model)
         {
             model.Entity<ProductCategory>().HasData(

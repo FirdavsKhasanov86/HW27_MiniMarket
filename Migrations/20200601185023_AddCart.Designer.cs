@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HW27_MiniMarket.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20200529145206_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20200601185023_AddCart")]
+    partial class AddCart
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -18,10 +18,27 @@ namespace HW27_MiniMarket.Migrations
             modelBuilder
                 .HasAnnotation("ProductVersion", "3.1.4");
 
+            modelBuilder.Entity("HW27_MiniMarket.Models.Cart", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Carts");
+                });
+
             modelBuilder.Entity("HW27_MiniMarket.Models.Product", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int?>("CartId")
                         .HasColumnType("INTEGER");
 
                     b.Property<double>("Price")
@@ -34,6 +51,8 @@ namespace HW27_MiniMarket.Migrations
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CartId");
 
                     b.HasIndex("ProductCategoryId");
 
@@ -73,6 +92,10 @@ namespace HW27_MiniMarket.Migrations
 
             modelBuilder.Entity("HW27_MiniMarket.Models.Product", b =>
                 {
+                    b.HasOne("HW27_MiniMarket.Models.Cart", null)
+                        .WithMany("Products")
+                        .HasForeignKey("CartId");
+
                     b.HasOne("HW27_MiniMarket.Models.ProductCategory", "ProductCategory")
                         .WithMany("Product")
                         .HasForeignKey("ProductCategoryId");
